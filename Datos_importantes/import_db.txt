@@ -1,0 +1,41 @@
+{
+echo '#!/bin/bash'
+echo 'export TMPDIR=/srv/home/kcarrasco/tmp'
+echo 'qiime tools import \'
+echo '--type 'FeatureData[Sequence]' \'
+echo '--input-path /srv/home/kcarrasco/PN/ITS/ITS_cafe/7_databases/UNITE/sh_refs_qiime_ver7_97_s_01.12.2017.fasta \'
+echo '--output-path /srv/home/kcarrasco/PN/ITS/ITS_cafe/7_databases/unite99.qza'
+} > 7_import_seqs_unite.sh
+
+
+{
+echo 'executable  = /srv/home/kcarrasco/PN/ITS/ITS_cafe/3_ejecutables/7_import_seqs_unite.sh'
+echo 'getenv  = True'
+echo 'output  = /srv/home/kcarrasco/PN/ITS/ITS_cafe/4_outs/7_import_seqs_unite$(Process).out'
+echo 'log    = /srv/home/kcarrasco/PN/ITS/ITS_cafe/7_import_seqs_unite$(Process).log'
+echo 'error  = /srv/home/kcarrasco/PN/ITS/ITS_cafe/6_errores/7_import_seqs_unite$(Process).error'
+echo '# request_cpus  = 10'
+echo 'Requirements = (Machine == "katsina1.lancis.ecologia.unam.mx")'
+echo 'queue'
+} > 7_import_seqs_unite_submit.condor
+
+
+{
+echo '#!/bin/bash'
+echo 'export TMPDIR=/srv/home/kcarrasco/tmp'
+echo 'qiime tools import \'
+echo '--type 'FeatureData[Taxonomy]' \'
+echo '--input-path /srv/home/kcarrasco/PN/ITS/ITS_cafe/7_databases/UNITE/sh_taxonomy_qiime_ver7_97_s_01.12.2017.txt/'
+echo '--source-format HeaderlessTSVTaxonomyFormat \'
+echo '--output-path /srv/home/kcarrasco/PN/ITS/ITS_cafe/7_databases/UNITE/unite97_tax.qza'
+} > 7_import_seqs_unite_tax.sh
+
+{
+echo 'executable  = /srv/home/kcarrasco/PN/ITS/ITS_cafe/3_ejecutables/7_import_seqs_unite_tax.sh'
+echo 'getenv  = True'
+echo 'output  = /srv/home/kcarrasco/PN/ITS/ITS_cafe/4_outs/7_import_seqs_unite_tax$(Process).out'
+echo 'log    = /srv/home/kcarrasco/PN/ITS/ITS_cafe/5_logs/7_import_seqs_unite_tax$(Process).log'
+echo 'error  = /srv/home/kcarrasco/PN/ITS/ITS_cafe/6_errores/7_import_seqs_unite_tax$(Process).error'
+echo '# request_cpus  = 10'
+echo 'queue'
+} > 7_import_seqs_unite_tax_submit.condor
